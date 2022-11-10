@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Detail Page";
+}
+@model TTMovieCase.Entities.Movie.MovieVM;
+
+<main role="main">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">@Model.original_title - @Model.release_date</h1>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="@Model.backdrop_path" class="d-block center" alt="Backdrop" width="700" height="500">
+                </div>
+            </div>
+            <p class="lead text-muted">Popularity: @Model.popularity </p>
+            <p class="lead text-muted">Vote Average / Vote Count:@Model.vote_average / @Model.vote_count </p>
+            @Model.video
+            <p>
+                
+               Overview: @Model.overview
+            </p>
+        </div>
+    </section>
+    <hr/>
+    <h2 class="center">Similar movies available to you</h2>
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @{
+                string isActive = "active";
+            }
+            @foreach (var item in Model.SimilarMovies)
+            {
+                <div class="carousel-item @isActive" data-bs-interval="1500">
+                    <img src="@item.poster_path" class="d-block center" alt="@item.title" width="700" height="500">
+                </div>
+                isActive = "";
+            }
+        </div>
+    </div>
+</main>
